@@ -81,7 +81,7 @@ def convert_nqueens_to_sat(size):
         diagonal_lists.append(top_diagonals)
 
         # Positive diagonals
-        primary = 4 - i
+        primary = 5 - i
         bottom_primary = 4
         secondary = 1
         bottom_secondary = i
@@ -108,7 +108,7 @@ def convert_nqueens_to_sat(size):
 
 
 def write_to_file(cnf_file):
-    with open("nQueens_SAT.cnf", 'w') as file:
+    with open("nQueens_SAT_rn.cnf", 'w') as file:
         file.write(cnf_file)
 
 
