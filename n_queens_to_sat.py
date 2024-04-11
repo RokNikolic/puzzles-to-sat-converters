@@ -56,26 +56,36 @@ def convert_queens_to_sat(size):
     sat_array1.extend(at_most_one_multi(size))
     print(sat_array1)
 
-    lists = []
+    main_lists = []
+    diagonal_lists = []
     for i in range(size):
         # Rows
-        lists.append([f"{i}{j}" for j in range(size)])
+        main_lists.append([f"{i}{j}" for j in range(size)])
         # Columns
-        lists.append([f"{j}{i}" for j in range(size)])
-        # Diagonals
+        main_lists.append([f"{j}{i}" for j in range(size)])
+        # Falling diagonals
         primary_num = i
         secondary_num = 0
+        primary_sat_array = []
+        secondary_sat_array = []
         while primary_num < size:
-            print(f"{primary_num}{secondary_num}")
-            print(f"{secondary_num}{primary_num}")
+            primary_sat_array.append(f"{primary_num}{secondary_num}")
+            if primary_num != secondary_num:
+                secondary_sat_array.append(f"{secondary_num}{primary_num}")
             secondary_num += 1
             primary_num += 1
+        diagonal_lists.append(primary_sat_array)
+        if secondary_sat_array:
+            diagonal_lists.append(secondary_sat_array)
 
     sat_array = []
-    for item_list in lists:
+    for item_list in main_lists:
         sat_array.extend(exactly_one(item_list))
+
+    for item_list in diagonal_lists:
+        sat_array.extend(at_most_one(item_list))
 
     return sat_array
 
 
-print(convert_queens_to_sat(4))
+print(convert_queens_to_sat(3))
