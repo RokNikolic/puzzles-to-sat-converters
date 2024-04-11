@@ -1,13 +1,13 @@
-# nQueens to SAT reducer
+# nQueens to SAT converter ♕
+# Rok Nikolič 2024
 
-def cnf_writer(comment, size, sat_array):
-    empty_line = "c\n"
-    comment_line = f"c {comment}\n"
+def cnf_writer(size, sat_array):
+    comment_line = f"c nQueens to sat converter, RN 2024\n"
     file_format = "CNF"
     variables = size**2
     clauses = len(sat_array)
     problem_line = f"p {file_format} {variables} {clauses}\n"
-    preamble = f"{comment_line}{empty_line}{problem_line}"
+    preamble = f"{comment_line}c\n{problem_line}"
 
 
 def at_least_one_multi(size):
@@ -57,14 +57,19 @@ def convert_queens_to_sat(size):
     print(sat_array1)
 
     lists = []
-    for i in range(1, size+1):
+    for i in range(size):
         # Rows
-        lists.append([f"{i}{j}" for j in range(1, size + 1)])
+        lists.append([f"{i}{j}" for j in range(size)])
         # Columns
-        lists.append([f"{j}{i}" for j in range(1, size + 1)])
+        lists.append([f"{j}{i}" for j in range(size)])
         # Diagonals
-        for j in range(1, size+1):
-            pass
+        primary_num = i
+        secondary_num = 0
+        while primary_num < size:
+            print(f"{primary_num}{secondary_num}")
+            print(f"{secondary_num}{primary_num}")
+            secondary_num += 1
+            primary_num += 1
 
     sat_array = []
     for item_list in lists:
@@ -73,4 +78,4 @@ def convert_queens_to_sat(size):
     return sat_array
 
 
-print(convert_queens_to_sat(3))
+print(convert_queens_to_sat(4))
