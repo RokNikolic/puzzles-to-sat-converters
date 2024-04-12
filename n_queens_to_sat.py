@@ -2,7 +2,7 @@
 # Rok Nikolič 2024
 
 def cnf_writer(sat_list):
-    comment_line = f"c nQueens to sat converter, RN 2024\n"
+    comment_line = f"c nQueens to sat converter, Rok N 2024\n"
     file_format = "cnf"
     variables = len(sat_list[0])**2
     clauses = len(sat_list)
@@ -16,28 +16,6 @@ def cnf_writer(sat_list):
         clause_string += "0\n"
         clauses += clause_string
     return f"{preamble}{clauses}"
-
-
-def at_least_one_multi(size):
-    clauses = []
-    for i in range(1, size + 1):
-        # Rows
-        clauses.append([f"{i}{j}" for j in range(1, size + 1)])
-        # Columns
-        clauses.append([f"{j}{i}" for j in range(1, size + 1)])
-    return clauses
-
-
-def at_most_one_multi(size):
-    clauses = []
-    for i in range(1, size + 1):
-        for j in range(1, size):
-            for k in range(j + 1, size + 1):
-                # Row
-                clauses.append([f"-{i}{j}", f"-{i}{k}"])
-                # Column
-                clauses.append([f"-{j}{i}", f"-{k}{i}"])
-    return clauses
 
 
 def at_least_one(item_list):
@@ -59,6 +37,7 @@ def exactly_one(item_list):
 
 
 def convert_nqueens_to_sat(size):
+    # Generate lists of rows, columns and diagonals
     main_lists = []
     diagonal_lists = []
     for i in range(1, size + 1):
@@ -97,6 +76,7 @@ def convert_nqueens_to_sat(size):
         diagonal_lists.append(left_diagonals)
         diagonal_lists.append(bottom_diagonals)
 
+    # Convert lists to sat clauses
     sat_list = []
     for item_list in main_lists:
         sat_list.extend(exactly_one(item_list))
@@ -107,12 +87,11 @@ def convert_nqueens_to_sat(size):
     return sat_list
 
 
-def write_to_file(cnf_file):
-    with open("nQueens_SAT_rn.cnf", 'w') as file:
+def write_to_cnf_file(cnf_file):
+    with open("nQueens_SAT.cnf", 'w') as file:
         file.write(cnf_file)
 
 
-problem_size = 4
-sat_array = convert_nqueens_to_sat(problem_size)
+sat_array = convert_nqueens_to_sat(4)
 cnf = cnf_writer(sat_array)
-write_to_file(cnf)
+write_to_cnf_file(cnf)
