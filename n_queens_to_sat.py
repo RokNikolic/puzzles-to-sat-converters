@@ -88,7 +88,7 @@ def convert_nqueens_to_sat(size):
 
 
 def write_to_cnf_file(cnf_file):
-    with open("nQueens_SAT.cnf", 'w') as file:
+    with open("n_queens_sat.cnf", 'w') as file:
         file.write(cnf_file)
 
 
