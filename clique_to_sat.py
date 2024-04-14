@@ -50,6 +50,7 @@ def convert_clique_to_sat(num_of_vertices, clique_size, graph_edges):
                     edge_list.append(f"{i}{r}")
                     edge_list.append(f"{j}{r}")
             if edge_list:
+                print(edge_list)
                 lists.extend(at_most_one(edge_list))
 
     return lists
