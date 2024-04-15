@@ -1,21 +1,7 @@
 # clique to SAT converter
 # Rok Nikolič 2024
 
-
-def cnf_writer(sat_list, variables):
-    comment_line = f"c clique to sat converter, Rok N 2024\n"
-    file_format = "cnf"
-    clauses = len(sat_list)
-    problem_line = f"p {file_format} {variables} {clauses}\n"
-    preamble = f"{comment_line}{problem_line}"
-    clauses = ""
-    for clause in sat_list:
-        clause_string = ""
-        for variable in clause:
-            clause_string += f"{variable} "
-        clause_string += "0\n"
-        clauses += clause_string
-    return f"{preamble}{clauses}"
+from write_helpers import cnf_writer
 
 
 def at_most_one(item_list):
@@ -63,5 +49,4 @@ def write_to_cnf_file(cnf_file):
 
 graph_edges1 = ["13", "23", "34", "35", "45"]
 sat_array = convert_clique_to_sat(5, 3, graph_edges1)
-cnf = cnf_writer(sat_array, 5*3)
-write_to_cnf_file(cnf)
+print(cnf_writer(sat_array, "clique_to_sat"))

@@ -1,21 +1,7 @@
 # 2-Less to SAT converter
 # Rok Nikolič 2024
 
-
-def cnf_writer(sat_list, variables):
-    comment_line = f"c 2less to sat converter, Rok N 2024\n"
-    file_format = "cnf"
-    clauses = len(sat_list)
-    problem_line = f"p {file_format} {variables} {clauses}\n"
-    preamble = f"{comment_line}{problem_line}"
-    clauses = ""
-    for clause in sat_list:
-        clause_string = ""
-        for variable in clause:
-            clause_string += f"{variable} "
-        clause_string += "0\n"
-        clauses += clause_string
-    return f"{preamble}{clauses}"
+from write_helpers import cnf_writer
 
 
 def at_most_one(item_list):
@@ -68,12 +54,12 @@ def convert_2less_to_sat(n, sequence_length):
         for j in range(1, n + 1):
             for k in range(1, n + 1):
                 not_connected = make_list_of_not_connected((i, j, k), n)
-                for non_connection in not_connected:
-                    if non_connection == (i, j, k):
+                for non_connect in not_connected:
+                    if non_connect == (i, j, k):
                         continue
                     for r in range(1, sequence_length + 1):
                         for s in range(1, r):
-                            sat_list = [f"{i}{j}{k}{s}", f"{non_connection[0]}{non_connection[1]}{non_connection[2]}{r}"]
+                            sat_list = [f"{i}{j}{k}{s}", f"{non_connect[0]}{non_connect[1]}{non_connect[2]}{r}"]
                             lists.extend(at_most_one(sat_list))
 
     return lists
@@ -84,8 +70,5 @@ def write_to_cnf_file(cnf_file):
         file.write(cnf_file)
 
 
-n = 7
-k = 17
-sat_array = convert_2less_to_sat(n, k)
-cnf = cnf_writer(sat_array, (n**3)*k)
-write_to_cnf_file(cnf)
+sat_array = convert_2less_to_sat(4, 10)
+print(cnf_writer(sat_array, "2_less_to_sat"))

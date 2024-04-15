@@ -1,21 +1,7 @@
 # nQueens to SAT converter ♕
 # Rok Nikolič 2024
 
-def cnf_writer(sat_list):
-    comment_line = f"c nQueens to sat converter, Rok N 2024\n"
-    file_format = "cnf"
-    variables = len(sat_list[0])**2
-    clauses = len(sat_list)
-    problem_line = f"p {file_format} {variables} {clauses}\n"
-    preamble = f"{comment_line}{problem_line}"
-    clauses = ""
-    for clause in sat_list:
-        clause_string = ""
-        for variable in clause:
-            clause_string += f"{variable} "
-        clause_string += "0\n"
-        clauses += clause_string
-    return f"{preamble}{clauses}"
+from write_helpers import cnf_writer
 
 
 def at_least_one(item_list):
@@ -87,11 +73,5 @@ def convert_nqueens_to_sat(size):
     return sat_list
 
 
-def write_to_cnf_file(cnf_file):
-    with open("n_queens_sat.cnf", 'w') as file:
-        file.write(cnf_file)
-
-
 sat_array = convert_nqueens_to_sat(4)
-cnf = cnf_writer(sat_array)
-write_to_cnf_file(cnf)
+print(cnf_writer(sat_array, "n_queens_sat"))
