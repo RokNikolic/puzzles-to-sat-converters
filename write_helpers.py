@@ -1,7 +1,7 @@
 def cnf_writer(sat_list, comment):
     comment_line = f"c {comment}\n"
     file_format = "cnf"
-    num_of_variables = len(sat_list)
+    num_of_variables = max(max(sat_list))
     num_of_clauses = len(sat_list)
     problem_line = f"p {file_format} {num_of_variables} {num_of_clauses}\n"
     preamble = f"{comment_line}{problem_line}"

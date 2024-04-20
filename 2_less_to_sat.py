@@ -70,5 +70,5 @@ def write_to_cnf_file(cnf_file):
         file.write(cnf_file)
 
 
-sat_array = convert_2less_to_sat(4, 10)
+sat_array = convert_2less_to_sat(4, 9)
 print(cnf_writer(sat_array, "2_less_to_sat"))
