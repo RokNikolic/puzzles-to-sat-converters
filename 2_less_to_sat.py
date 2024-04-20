@@ -54,21 +54,16 @@ def convert_2less_to_sat(n, sequence_length):
         for j in range(1, n + 1):
             for k in range(1, n + 1):
                 not_connected = make_list_of_not_connected((i, j, k), n)
-                for non_connect in not_connected:
-                    if non_connect == (i, j, k):
+                for non_conn in not_connected:
+                    if non_conn == (i, j, k):
                         continue
                     for r in range(1, sequence_length + 1):
                         for s in range(1, r):
-                            sat_list = [f"{i}{j}{k}{s}", f"{non_connect[0]}{non_connect[1]}{non_connect[2]}{r}"]
+                            sat_list = [f"{i}{j}{k}{s}", f"{non_conn[0]}{non_conn[1]}{non_conn[2]}{r}"]
                             lists.extend(at_most_one(sat_list))
 
     return lists
 
 
-def write_to_cnf_file(cnf_file):
-    with open("2_less_sat.cnf", 'w') as file:
-        file.write(cnf_file)
-
-
 sat_array = convert_2less_to_sat(4, 9)
-print(cnf_writer(sat_array, "2_less_to_sat"))
+print(cnf_writer(sat_array, "2_less_sat"))

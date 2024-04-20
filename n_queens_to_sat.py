@@ -22,6 +22,39 @@ def exactly_one(item_list):
     return final_list
 
 
+# The code for diagonals in not pretty and could be made better
+def find_negative_diagonals(i, size):
+    primary = i
+    secondary = 1
+    left_diagonals = []
+    top_diagonals = []
+    while primary < size + 1:
+        left_diagonals.append(f"{primary}{secondary}")
+        top_diagonals.append(f"{secondary}{primary}")
+        primary += 1
+        secondary += 1
+
+    return [left_diagonals, top_diagonals]
+
+
+def find_positive_diagonals(i, size):
+    primary = 5 - i
+    bottom_primary = 4
+    secondary = 1
+    bottom_secondary = i
+    left_diagonals = []
+    bottom_diagonals = []
+    while bottom_secondary < size + 1:
+        left_diagonals.append(f"{primary}{secondary}")
+        bottom_diagonals.append(f"{bottom_primary}{bottom_secondary}")
+        primary -= 1
+        bottom_primary -= 1
+        secondary += 1
+        bottom_secondary += 1
+
+    return [left_diagonals, bottom_diagonals]
+
+
 def convert_nqueens_to_sat(size):
     # Generate lists of rows, columns and diagonals
     main_lists = []
@@ -31,36 +64,10 @@ def convert_nqueens_to_sat(size):
         main_lists.append([f"{i}{j}" for j in range(1, size + 1)])
         # Columns
         main_lists.append([f"{j}{i}" for j in range(1, size + 1)])
-
         # Negative diagonals
-        primary = i
-        secondary = 1
-        left_diagonals = []
-        top_diagonals = []
-        while primary < size + 1:
-            left_diagonals.append(f"{primary}{secondary}")
-            top_diagonals.append(f"{secondary}{primary}")
-            primary += 1
-            secondary += 1
-        diagonal_lists.append(left_diagonals)
-        diagonal_lists.append(top_diagonals)
-
+        diagonal_lists.extend(find_negative_diagonals(i, size))
         # Positive diagonals
-        primary = 5 - i
-        bottom_primary = 4
-        secondary = 1
-        bottom_secondary = i
-        left_diagonals = []
-        bottom_diagonals = []
-        while bottom_secondary < size + 1:
-            left_diagonals.append(f"{primary}{secondary}")
-            bottom_diagonals.append(f"{bottom_primary}{bottom_secondary}")
-            primary -= 1
-            bottom_primary -= 1
-            secondary += 1
-            bottom_secondary += 1
-        diagonal_lists.append(left_diagonals)
-        diagonal_lists.append(bottom_diagonals)
+        diagonal_lists.extend(find_positive_diagonals(i, size))
 
     # Convert lists to sat clauses
     sat_list = []

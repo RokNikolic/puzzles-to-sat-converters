@@ -38,11 +38,6 @@ def convert_clique_to_sat(num_of_vertices, clique_size, graph_edges):
     return lists
 
 
-def write_to_cnf_file(cnf_file):
-    with open("clique_sat.cnf", 'w') as file:
-        file.write(cnf_file)
-
-
 graph_edges1 = ["13", "23", "34", "35", "45"]
 sat_list = convert_clique_to_sat(5, 3, graph_edges1)
-print(cnf_writer(sat_list, "clique_to_sat"))
+print(cnf_writer(sat_list, "clique_sat"))
