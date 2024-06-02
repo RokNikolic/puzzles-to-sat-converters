@@ -1,5 +1,4 @@
-# clique to SAT converter
-# Rok Nikolič 2024
+# clique to SAT converter 2024, github.com/RokNikolic
 
 from write_helpers import cnf_writer
 
@@ -37,6 +36,7 @@ def convert_clique_to_sat(num_of_vertices, clique_size, graph_edges):
     return lists
 
 
-graph_edges1 = ["13", "23", "34", "35", "45"]
-sat_list = convert_clique_to_sat(5, 3, graph_edges1)
-print(cnf_writer(sat_list, "clique_sat"))
+if __name__ == "__main__":
+    graph_edges1 = ["13", "23", "34", "35", "45"]
+    sat_list = convert_clique_to_sat(5, 3, graph_edges1)
+    print(cnf_writer(sat_list, "clique_sat"))

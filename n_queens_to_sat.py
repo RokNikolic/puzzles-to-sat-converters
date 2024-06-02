@@ -1,5 +1,4 @@
-# nQueens to SAT converter ♕
-# Rok Nikolič 2024
+# nQueens to SAT converter 2024, github.com/RokNikolic
 
 from write_helpers import cnf_writer
 
@@ -80,5 +79,6 @@ def convert_nqueens_to_sat(size):
     return sat_list
 
 
-sat_array = convert_nqueens_to_sat(4)
-print(cnf_writer(sat_array, "n_queens_sat"))
+if __name__ == "__main__":
+    sat_array = convert_nqueens_to_sat(4)
+    print(cnf_writer(sat_array, "n_queens_sat"))

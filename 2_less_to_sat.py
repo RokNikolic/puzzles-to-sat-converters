@@ -1,5 +1,4 @@
-# 2-Less to SAT converter
-# Rok Nikolič 2024
+# 2-Less to SAT converter 2024, github.com/RokNikolic
 
 from write_helpers import cnf_writer
 
@@ -33,7 +32,6 @@ def convert_2less_to_sat(n, sequence_length):
     lists = []
     for r in range(1, sequence_length + 1):
         sat_list = []
-        # sat_list = [f"{i}{r}" for i in range(1, size_of_cube + 1)]
         for i in range(1, n + 1):
             for j in range(1, n + 1):
                 for k in range(1, n + 1):
@@ -65,5 +63,6 @@ def convert_2less_to_sat(n, sequence_length):
     return lists
 
 
-sat_array = convert_2less_to_sat(4, 9)
-print(cnf_writer(sat_array, "2_less_sat"))
+if __name__ == "__main__":
+    sat_array = convert_2less_to_sat(4, 9)
+    print(cnf_writer(sat_array, "2_less_sat"))
